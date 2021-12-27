@@ -1,0 +1,18 @@
+@use '../../styles/base/_mixins' as *;
+
+.home-page {
+  @include flexbox-center;
+  max-width: 300px;
+  width: 90%;
+
+  &__header {
+    letter-spacing: 0.5px;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  &__input {
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+}

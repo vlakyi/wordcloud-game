@@ -1,7 +1,23 @@
+import { useState } from 'react';
+import { useRoutes } from 'react-router-dom';
+import { NickNameContext } from './contexts/NickNameContext';
+import { routes } from './Routes';
 import './styles/main.scss';
 
 function App() {
-  return <div className="App"></div>;
+  let RouteElement = useRoutes(routes);
+  // In our case we haven't very deep component's tree, so we probaly don't need to use context.
+  // However I prefered to add it, because our RouteElement could change in the future
+  // and we wouldn't need to use props drilling
+  const [globalNickName, setGlobalNickName] = useState('');
+
+  return (
+    <div className="view-layout view-layout--center">
+      <NickNameContext.Provider value={{ globalNickName, setGlobalNickName }}>
+        {RouteElement}
+      </NickNameContext.Provider>
+    </div>
+  );
 }
 
 export default App;
