@@ -1,5 +1,7 @@
 import {
   generateRandomNumber,
+  normalizeQuestions,
+  capitalizeFirstCharacter,
   fetchData,
 } from '../utils';
 
@@ -47,6 +49,42 @@ describe('getRandomNumber', () => {
 
       expect(randomNumber).toBe(Infinity);
       expect(error.length).toBeGreaterThan(0);
+    });
+  });
+});
+
+describe('normalizeQuestions', () => {
+  const defaultWordClassName = 'test';
+
+  const normalizedQuestions = normalizeQuestions(
+    testQuestions,
+    defaultWordClassName
+  );
+
+  it('should return normalized data', () => {
+    normalizedQuestions.forEach(({ allWords, question }, index) => {
+      const relatedQuestion = testQuestions[index];
+
+      expect(question).toBe(capitalizeFirstCharacter(relatedQuestion.question));
+
+      let wordsIdArray: Array<string> = [];
+
+      allWords.forEach(({ id, value, selected, correct, className }) => {
+        // id should locally unique
+        expect(wordsIdArray.includes(id)).toBe(false);
+        wordsIdArray.push(id);
+
+        // value should be in all_words
+        expect(relatedQuestion.all_words.includes(value)).toBe(true);
+
+        // selected is false by default
+        expect(selected).toBe(false);
+
+        // word is correct if it was in good_words
+        expect(relatedQuestion.good_words.includes(value)).toBe(correct);
+
+        expect(className).toBe(defaultWordClassName);
+      });
     });
   });
 });

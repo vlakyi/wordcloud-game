@@ -1,3 +1,6 @@
+import { v4 as uuid } from 'uuid';
+import { QuestionArray } from './types';
+
 export function generateRandomNumber(min: number, max: number) {
   let result = {
     randomNumber: Infinity,
@@ -11,6 +14,42 @@ export function generateRandomNumber(min: number, max: number) {
   }
 
   return result;
+}
+
+export function capitalizeFirstCharacter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function normalizeWords(
+  allWords: Array<string>,
+  goodWords: Array<string>,
+  className: string
+) {
+  // Theoretically we can use word itself as an identifier, because in our case we have only unique words, however there would be an issue
+  // if the data wouldn't be unique, so I decided to add uuid library.
+  return allWords.map((word) => ({
+    id: uuid(),
+    value: word,
+    selected: false,
+    correct: goodWords.includes(word),
+    className: className,
+  }));
+}
+
+export function normalizeQuestions(
+  questions: QuestionArray,
+  defaultWordClassName: string
+) {
+  const normalized = questions?.map(function addMetadata(questionObj) {
+    const { question, all_words, good_words } = questionObj;
+
+    return {
+      question: capitalizeFirstCharacter(question),
+      allWords: normalizeWords(all_words, good_words, defaultWordClassName),
+    };
+  });
+
+  return normalized;
 }
 
 export async function fetchData(url: string) {
