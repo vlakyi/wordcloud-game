@@ -9,7 +9,7 @@
 
   &__words-list {
     border: 1px solid black;
-    border-radius: 0.25rem;
+    border-radius: 4px;
     padding: 2rem;
     display: flex;
     flex-wrap: wrap;
@@ -17,6 +17,10 @@
     justify-content: space-around;
     margin-top: 1rem;
     margin-bottom: 2rem;
+
+    &:focus {
+      outline: 2px solid black;
+    }
 
     @media screen and (min-width: 600px) {
       padding: 4rem;
@@ -26,6 +30,11 @@
   &__word {
     font-weight: var(--font-weight-bold);
     cursor: pointer;
+
+    &:focus {
+      outline: 1px solid black;
+      border-radius: 6px;
+    }
 
     &--selected {
       color: var(--word-selected);

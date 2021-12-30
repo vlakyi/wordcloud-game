@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useState } from 'react';
+import { ChangeEvent, useContext, useState, KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Componets
@@ -30,6 +30,12 @@ const Home = (): JSX.Element => {
     }
   };
 
+  const onInputEnterPress = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      onButtonClick();
+    }
+  };
+
   return (
     <section className="home-page">
       <h1 className="home-page__header">Wordcloud game</h1>
@@ -38,6 +44,7 @@ const Home = (): JSX.Element => {
         placeholder="Enter your nickname here..."
         value={nickName}
         onChange={onInputChange}
+        onKeyPress={onInputEnterPress}
       />
       <Button onClick={onButtonClick}>play</Button>
     </section>

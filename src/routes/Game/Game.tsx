@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNormalizedQuestions } from '../../hooks/useNormalizedQuestions';
 
@@ -30,6 +30,15 @@ const Game = (): JSX.Element => {
     }
   }
 
+  function onWordPressWithEnter(
+    event: KeyboardEvent<HTMLLIElement>,
+    wordId: string
+  ) {
+    if (event.key === 'Enter') {
+      toggleWordSelection(wordId);
+    }
+  }
+
   function checkAnswears() {
     setIsPlaying(false);
   }
@@ -42,14 +51,16 @@ const Game = (): JSX.Element => {
     <section className="game-page">
       <h2 className="game-page__header">{normalizedQuestion}</h2>
 
-      <ul className="game-page__words-list">
-        {normalizedWords?.map(function renderWords(word) {
+      <ul tabIndex={1} className="game-page__words-list">
+        {normalizedWords?.map(function renderWords(word, index) {
           const { id, value, className } = word;
           return (
             <li
+              tabIndex={index + 2}
               className={className}
               key={id}
               onClick={() => toggleWordSelection(id)}
+              onKeyPress={(e) => onWordPressWithEnter(e, id)}
             >
               {value}
             </li>
