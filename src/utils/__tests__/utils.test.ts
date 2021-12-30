@@ -1,7 +1,9 @@
+import { NormalizedQuestionWord } from '../types';
 import {
   generateRandomNumber,
   normalizeQuestions,
   capitalizeFirstCharacter,
+  getWordClassName,
   fetchData,
 } from '../utils';
 
@@ -85,6 +87,84 @@ describe('normalizeQuestions', () => {
 
         expect(className).toBe(defaultWordClassName);
       });
+    });
+  });
+});
+
+describe('getWordClassName', () => {
+  describe('Game in progress', () => {
+    const isPlaying = true;
+
+    it('should return baseStyle and baseStyle--selected for the selected word', () => {
+      const baseStyle = 'style';
+      const expectedClassName = `${baseStyle} ${baseStyle}--selected`;
+
+      const word: NormalizedQuestionWord = {
+        value: 'test',
+        id: 'id',
+        selected: true,
+        correct: false,
+        className: '',
+      };
+
+      const className = getWordClassName(baseStyle, word, isPlaying);
+
+      expect(className).toBe(expectedClassName);
+    });
+
+    it('should return baseStyle for not selected word', () => {
+      const baseStyle = 'style';
+      const expectedClassName = `${baseStyle}`;
+
+      const word: NormalizedQuestionWord = {
+        value: 'test',
+        id: 'id',
+        selected: false,
+        correct: false,
+        className: '',
+      };
+
+      const className = getWordClassName(baseStyle, word, isPlaying);
+
+      expect(className).toBe(expectedClassName);
+    });
+  });
+
+  describe('Game finished', () => {
+    const isPlaying = false;
+
+    it('should return baseStyle for not selected word', () => {
+      const baseStyle = 'style';
+      const expectedClassName = `${baseStyle}`;
+
+      const word: NormalizedQuestionWord = {
+        value: 'test',
+        id: 'id',
+        selected: false,
+        correct: false,
+        className: '',
+      };
+
+      const className = getWordClassName(baseStyle, word, isPlaying);
+
+      expect(className).toBe(expectedClassName);
+    });
+
+    it('should return baseStyle + baseStyle--incorrect for the incorrect word', () => {
+      const baseStyle = 'style';
+      const expectedClassName = `${baseStyle} ${baseStyle}--incorrect`;
+
+      const word: NormalizedQuestionWord = {
+        value: 'test',
+        id: 'id',
+        selected: true,
+        correct: false,
+        className: '',
+      };
+
+      const className = getWordClassName(baseStyle, word, isPlaying);
+
+      expect(className).toBe(expectedClassName);
     });
   });
 });

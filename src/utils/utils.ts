@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { QuestionArray } from './types';
+import { QuestionArray, NormalizedQuestionWord } from './types';
 
 export function generateRandomNumber(min: number, max: number) {
   let result = {
@@ -65,4 +65,27 @@ export async function fetchData(url: string) {
   } catch (err) {
     return err;
   }
+}
+
+export function getWordClassName(
+  baseStyle: string,
+  word: NormalizedQuestionWord,
+  isPlaying: boolean
+) {
+  const { selected, correct } = word;
+
+  const selectedStyle = baseStyle + '--selected';
+  const correctStyle = baseStyle + '--correct';
+  const incorrectStyle = baseStyle + '--incorrect';
+
+  // we should add additional classes only for selected items
+  if (selected) {
+    if (isPlaying) {
+      return `${baseStyle} ${selectedStyle}`;
+    } else {
+      return `${baseStyle} ${correct ? correctStyle : incorrectStyle}`;
+    }
+  }
+
+  return baseStyle;
 }
