@@ -12,3 +12,18 @@ export function generateRandomNumber(min: number, max: number) {
 
   return result;
 }
+
+export async function fetchData(url: string) {
+  try {
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      throw new Error(`Failed to load data: ${res.status}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    return err;
+  }
+}
