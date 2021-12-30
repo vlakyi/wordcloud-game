@@ -1,0 +1,66 @@
+.game-page {
+  width: 90%;
+  padding: 1rem;
+  max-width: 600px;
+
+  &__header {
+    font-size: 1.25rem;
+  }
+
+  &__words-list {
+    border: 1px solid black;
+    border-radius: 0.25rem;
+    padding: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem 1rem;
+    justify-content: space-around;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+
+    @media screen and (min-width: 600px) {
+      padding: 4rem;
+    }
+  }
+
+  &__word {
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+
+    &--selected {
+      color: var(--word-selected);
+    }
+
+    &--correct {
+      color: var(--word-correct-text);
+      position: relative;
+
+      &::before {
+        content: 'Good';
+        color: var(--word-correct-label);
+        position: absolute;
+        top: -1.25rem;
+      }
+    }
+
+    &--incorrect {
+      color: var(--word-incorrect-text);
+      position: relative;
+
+      &::before {
+        content: 'Bad';
+        color: var(--word-incorrect-label);
+        position: absolute;
+        top: -1.25rem;
+      }
+    }
+
+    &:nth-child(2n + 0) {
+      flex: 0 0 25%;
+    }
+
+    &:nth-child(3n + 0) {
+      flex: 0 0 30%;
+    }
+  }
+}
