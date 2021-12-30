@@ -1,6 +1,8 @@
 import { lazy, Suspense } from 'react';
 import type { RouteObject } from 'react-router-dom';
 
+import RequireNickName from './RequireNickName';
+
 // Add lazy loading
 const Game = lazy(() => import('./Game/Game'));
 const Home = lazy(() => import('./Home/Home'));
@@ -19,7 +21,9 @@ export let routes: RouteObject[] = [
     path: '/game',
     element: (
       <Suspense fallback={<div>Loading...</div>}>
-        <Game />
+        <RequireNickName>
+          <Game />
+        </RequireNickName>
       </Suspense>
     ),
   },
@@ -27,7 +31,9 @@ export let routes: RouteObject[] = [
     path: '/score',
     element: (
       <Suspense fallback={<div>Loading...</div>}>
-        <Score />
+        <RequireNickName>
+          <Score />
+        </RequireNickName>
       </Suspense>
     ),
   },
