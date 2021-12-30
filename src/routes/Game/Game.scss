@@ -18,7 +18,7 @@
     margin-top: 1rem;
     margin-bottom: 2rem;
 
-    &:focus {
+    &:focus-visible {
       outline: 2px solid black;
     }
 
@@ -31,9 +31,8 @@
     font-weight: var(--font-weight-bold);
     cursor: pointer;
 
-    &:focus {
+    &:focus-visible {
       outline: 1px solid black;
-      border-radius: 6px;
     }
 
     &--selected {

@@ -4,7 +4,7 @@
   color: var(--color-primary);
   border-radius: 6px;
 
-  &:focus {
+  &:focus-visible {
     border-width: 2px;
     font-weight: var(--font-weight-bold);
   }
