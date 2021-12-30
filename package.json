@@ -43,6 +43,8 @@
     ]
   },
   "devDependencies": {
+    "@types/uuid": "^8.3.3",
+    "msw": "^0.36.3",
     "sass": "^1.45.1"
   }
 }
