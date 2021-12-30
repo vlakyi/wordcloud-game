@@ -1,6 +1,12 @@
 import { ChangeEvent, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+// Componets
+import Button from '../../components/Button/Button';
+
+// Context
 import { NickNameContext } from '../../contexts/NickNameContext';
+
 import './Home.scss';
 
 const Home = (): JSX.Element => {
@@ -33,7 +39,7 @@ const Home = (): JSX.Element => {
         value={nickName}
         onChange={onInputChange}
       />
-      <button onClick={onButtonClick}>play</button>
+      <Button onClick={onButtonClick}>play</Button>
     </section>
   );
 };

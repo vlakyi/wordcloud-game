@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNormalizedQuestions } from '../../hooks/useNormalizedQuestions';
 
+// components
+import Button from '../../components/Button/Button';
+
 // constants
 import { QUESTIONS_URL } from '../../utils/constsants';
 
@@ -55,9 +58,9 @@ const Game = (): JSX.Element => {
       </ul>
 
       {isPlaying ? (
-        <button onClick={checkAnswears}>check answears</button>
+        <Button onClick={checkAnswears}>check answears</Button>
       ) : (
-        <button onClick={saveResultAndChangeRoute}>finish game</button>
+        <Button onClick={saveResultAndChangeRoute}>finish game</Button>
       )}
     </section>
   );
