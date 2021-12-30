@@ -1,5 +1,9 @@
 import { v4 as uuid } from 'uuid';
-import { QuestionArray, NormalizedQuestionWord } from './types';
+import {
+  QuestionArray,
+  NormalizedQuestionWord,
+  NormalizedQuestionWordArray,
+} from './types';
 
 export function generateRandomNumber(min: number, max: number) {
   let result = {
@@ -88,4 +92,38 @@ export function getWordClassName(
   }
 
   return baseStyle;
+}
+
+// I calculated score based on the formula from the assignment, however there is a chance,
+// that we will got the negative result (result < 0).
+
+export function calculateScore(words: NormalizedQuestionWordArray) {
+  let initValue = {
+    correctSelected: 0,
+    correctNotSelected: 0,
+    incorrectSelected: 0,
+  };
+
+  // workaround for typescript issue you can find more about it there:
+  // https://github.com/microsoft/TypeScript/issues/44063
+
+  let result = (words as NormalizedQuestionWord[]).reduce(
+    (acc: typeof initValue, word: NormalizedQuestionWord) => {
+      const { correct, selected } = word;
+      if (correct && selected) {
+        acc.correctSelected = ++acc.correctSelected;
+      } else if (correct && !selected) {
+        acc.correctNotSelected = ++acc.correctNotSelected;
+      } else if (!correct && selected) {
+        acc.incorrectSelected = ++acc.incorrectSelected;
+      }
+
+      return acc;
+    },
+    initValue
+  );
+  const { correctNotSelected, correctSelected, incorrectSelected } = result;
+  const score = correctSelected * 2 - (incorrectSelected + correctNotSelected);
+
+  return score;
 }

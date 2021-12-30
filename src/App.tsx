@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useRoutes } from 'react-router-dom';
 import { NickNameContext } from './contexts/NickNameContext';
-import { routes } from './Routes';
 import { ScoreContext } from './contexts/ScoreContext';
+import { routes } from './routes/Routes';
 import './styles/main.scss';
 
 function App() {

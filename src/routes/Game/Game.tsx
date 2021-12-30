@@ -1,12 +1,18 @@
-import { useState, useEffect, KeyboardEvent } from 'react';
+import { useState, useEffect, KeyboardEvent, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNormalizedQuestions } from '../../hooks/useNormalizedQuestions';
 
 // components
 import Button from '../../components/Button/Button';
 
+// utils
+import { calculateScore } from '../../utils/utils';
+
 // constants
 import { QUESTIONS_URL } from '../../utils/constsants';
+
+// context
+import { ScoreContext } from '../../contexts/ScoreContext';
 
 import './Game.scss';
 
@@ -17,6 +23,8 @@ const Game = (): JSX.Element => {
   // custom hook for better testability and readability
   const { normalizedQuestion, normalizedWords, dispatch } =
     useNormalizedQuestions({ dataUrl: QUESTIONS_URL });
+
+  const { setGlobalScore } = useContext(ScoreContext);
 
   useEffect(() => {
     if (!isPlaying) {
@@ -40,11 +48,19 @@ const Game = (): JSX.Element => {
   }
 
   function checkAnswears() {
-    setIsPlaying(false);
+    const selectedWord = normalizedWords.find(function findSelectedWord(word) {
+      return word.selected;
+    });
+
+    if (selectedWord) {
+      setIsPlaying(false);
+    }
   }
 
   function saveResultAndChangeRoute() {
-    navigate('../');
+    const score = calculateScore(normalizedWords);
+    setGlobalScore(score);
+    navigate('../score');
   }
 
   return (
