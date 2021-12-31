@@ -1,17 +1,15 @@
-import { NormalizedQuestionWord, NormalizedQuestionWordArray } from '../types';
+import { NormalizedQuestionWord } from '../types';
 import {
   generateRandomNumber,
   normalizeQuestions,
   capitalizeFirstCharacter,
   getWordClassName,
   fetchData,
-  calculateScore,
 } from '../utils';
 
 import { server, INVALID_URL, QUESTIONS_URL } from '../../mocks/server';
 
 import { testQuestions } from '../../setupTests';
-import { calculateNewValue } from '@testing-library/user-event/dist/utils';
 
 beforeAll(() => server.listen());
 
@@ -185,43 +183,5 @@ describe('fetchData', () => {
 
     expect(error).toBeInstanceOf(Error);
     expect(error.message).toBe('Failed to load data: 404');
-  });
-});
-
-describe('calculateScore', () => {
-  it('should return correct score', () => {
-    const testWords: NormalizedQuestionWordArray = [
-      {
-        correct: true,
-        selected: true,
-        id: 'test',
-        className: 'test',
-        value: 'word',
-      },
-      {
-        correct: true,
-        selected: true,
-        id: 'test',
-        className: 'test',
-        value: 'word',
-      },
-      {
-        correct: false,
-        selected: true,
-        id: 'test',
-        className: 'test',
-        value: 'word',
-      },
-    ];
-
-    expect(calculateScore(testWords)).toBe(3);
-
-    testWords[0].selected = false;
-
-    expect(calculateScore(testWords)).toBe(0);
-
-    testWords[1].selected = false;
-
-    expect(calculateScore(testWords)).toBe(-3);
   });
 });
