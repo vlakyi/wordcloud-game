@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import type { RouteObject } from 'react-router-dom';
+import { Navigate, RouteObject } from 'react-router-dom';
 
 import RequireNickName from './RequireNickName';
 
@@ -36,5 +36,9 @@ export let routes: RouteObject[] = [
         </RequireNickName>
       </Suspense>
     ),
+  },
+  {
+    path: '*',
+    element: <Navigate to={'/'} />,
   },
 ];
