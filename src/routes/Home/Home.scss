@@ -1,0 +1,27 @@
+@use '../../styles/base/_mixins' as *;
+
+.home-page {
+  @include flexbox-center;
+  max-width: 400px;
+  width: 90%;
+
+  &__header {
+    letter-spacing: 0.5px;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+
+    @media screen and(min-width: 425px) {
+      font-size: 2.75rem;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--color-accent-light);
+    border-radius: 4px;
+    padding: 0.75rem;
+    outline-color: var(--color-primary);
+  }
+}

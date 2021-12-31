@@ -2,4 +2,21 @@
 :root {
   // Font
   font-family: 'Roboto', sans-serif;
+  --font-weight-regular: 300;
+  --font-weight-bold: 500;
+
+  // Colors
+  --word-selected: grey;
+
+  --word-correct-label: rgb(13, 189, 13);
+  --word-correct-text: rgb(109, 189, 77);
+
+  --word-incorrect-label: rgb(241, 147, 136);
+  --word-incorrect-text: rgb(248, 69, 63);
+
+  --color-primary: rgb(19, 145, 230);
+  --color-accent-light: lightgrey;
+
+  --border-color-primary: black;
+  --border-color-light: var(--color-primary);
 }
