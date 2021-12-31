@@ -15,9 +15,12 @@ import { QUESTIONS_URL } from '../../utils/constsants';
 import { ScoreContext } from '../../contexts/ScoreContext';
 
 import './Game.scss';
+import useBrowserName from '../../hooks/useBrowserName';
 
 const Game = (): JSX.Element => {
   const navigate = useNavigate();
+  const browserName = useBrowserName();
+
   const [isPlaying, setIsPlaying] = useState(true);
 
   // custom hook for better testability and readability
@@ -67,12 +70,15 @@ const Game = (): JSX.Element => {
     <section className="game-page">
       <h2 className="game-page__header">{normalizedQuestion}</h2>
 
-      <ul tabIndex={1} className="game-page__words-list">
+      <ul
+        tabIndex={browserName !== 'Apple Safari' ? 1 : NaN}
+        className="game-page__words-list"
+      >
         {normalizedWords?.map(function renderWords(word, index) {
           const { id, value, className } = word;
           return (
             <li
-              tabIndex={index + 2}
+              tabIndex={browserName !== 'Apple Safari' ? index + 2 : NaN}
               className={className}
               key={id}
               onClick={() => toggleWordSelection(id)}
