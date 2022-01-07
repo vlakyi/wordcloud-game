@@ -4,8 +4,6 @@ export type Question = {
   good_words: Array<string>;
 };
 
-export type QuestionArray = Array<Question> | [];
-
 export type NormalizedQuestionWord = {
   id: string;
   value: string;
@@ -14,11 +12,7 @@ export type NormalizedQuestionWord = {
   className: string;
 };
 
-export type NormalizedQuestionWordArray = Array<NormalizedQuestionWord> | [];
-
 export type NormalizedQuestion = {
   question: string;
   allWords: Array<NormalizedQuestionWord>;
 };
-
-export type NormalizedQuestionArray = Array<NormalizedQuestion> | [];

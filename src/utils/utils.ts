@@ -1,13 +1,9 @@
 import { v4 as uuid } from 'uuid';
-import {
-  QuestionArray,
-  NormalizedQuestionWord,
-  NormalizedQuestionWordArray,
-} from './types';
+import { Question, NormalizedQuestionWord } from './types';
 
 export function generateRandomNumber(min: number, max: number) {
   let result = {
-    randomNumber: Infinity,
+    randomNumber: NaN,
     error: '',
   };
 
@@ -41,7 +37,7 @@ function normalizeWords(
 }
 
 export function normalizeQuestions(
-  questions: QuestionArray,
+  questions: Question[],
   defaultWordClassName: string
 ) {
   const normalized = questions?.map(function addMetadata(questionObj) {
@@ -97,31 +93,27 @@ export function getWordClassName(
 // I calculated score based on the formula from the assignment, however there is a chance,
 // that we will got the negative result (result < 0).
 
-export function calculateScore(words: NormalizedQuestionWordArray) {
+export function calculateScore(words: NormalizedQuestionWord[]) {
   let initValue = {
     correctSelected: 0,
     correctNotSelected: 0,
     incorrectSelected: 0,
   };
 
-  // workaround for typescript issue you can find more about it there:
-  // https://github.com/microsoft/TypeScript/issues/44063
+  let result = words.reduce((acc, word: NormalizedQuestionWord) => {
+    const { correct, selected } = word;
 
-  let result = (words as NormalizedQuestionWord[]).reduce(
-    (acc: typeof initValue, word: NormalizedQuestionWord) => {
-      const { correct, selected } = word;
-      if (correct && selected) {
-        acc.correctSelected = ++acc.correctSelected;
-      } else if (correct && !selected) {
-        acc.correctNotSelected = ++acc.correctNotSelected;
-      } else if (!correct && selected) {
-        acc.incorrectSelected = ++acc.incorrectSelected;
-      }
+    if (correct && selected) {
+      acc.correctSelected = ++acc.correctSelected;
+    } else if (correct && !selected) {
+      acc.correctNotSelected = ++acc.correctNotSelected;
+    } else if (!correct && selected) {
+      acc.incorrectSelected = ++acc.incorrectSelected;
+    }
 
-      return acc;
-    },
-    initValue
-  );
+    return acc;
+  }, initValue);
+
   const { correctNotSelected, correctSelected, incorrectSelected } = result;
   const score = correctSelected * 2 - (incorrectSelected + correctNotSelected);
 

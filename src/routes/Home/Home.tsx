@@ -26,7 +26,7 @@ const Home = (): JSX.Element => {
     if (trimmedNickName.length > 0) {
       setNickName(trimmedNickName);
       setGlobalNickName(trimmedNickName);
-      navigate('../game');
+      navigate('game');
     }
   };
 

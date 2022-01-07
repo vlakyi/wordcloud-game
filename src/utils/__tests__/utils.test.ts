@@ -49,7 +49,7 @@ describe('getRandomNumber', () => {
       let max = 1;
       let { randomNumber, error } = generateRandomNumber(min, max);
 
-      expect(randomNumber).toBe(Infinity);
+      expect(randomNumber).toBe(NaN);
       expect(error.length).toBeGreaterThan(0);
     });
   });

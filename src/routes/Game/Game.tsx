@@ -51,9 +51,7 @@ const Game = (): JSX.Element => {
   }
 
   function checkAnswears() {
-    const selectedWord = normalizedWords.find(function findSelectedWord(word) {
-      return word.selected;
-    });
+    const selectedWord = normalizedWords.find((word) => word.selected);
 
     if (selectedWord) {
       setIsPlaying(false);
@@ -63,7 +61,7 @@ const Game = (): JSX.Element => {
   function saveResultAndChangeRoute() {
     const score = calculateScore(normalizedWords);
     setGlobalScore(score);
-    navigate('../score');
+    navigate('/score');
   }
 
   return (
