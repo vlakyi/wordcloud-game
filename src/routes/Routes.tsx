@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import { Navigate, RouteObject } from 'react-router-dom';
 
 import RequireNickName from './RequireNickName';
@@ -11,30 +11,22 @@ const Score = lazy(() => import('./Score/Score'));
 export let routes: RouteObject[] = [
   {
     path: '/',
-    element: (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Home />
-      </Suspense>
-    ),
+    element: <Home />,
   },
   {
     path: '/game',
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
-        <RequireNickName>
-          <Game />
-        </RequireNickName>
-      </Suspense>
+      <RequireNickName>
+        <Game />
+      </RequireNickName>
     ),
   },
   {
     path: '/score',
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
-        <RequireNickName>
-          <Score />
-        </RequireNickName>
-      </Suspense>
+      <RequireNickName>
+        <Score />
+      </RequireNickName>
     ),
   },
   {

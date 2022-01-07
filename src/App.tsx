@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useRoutes } from 'react-router-dom';
 import { NickNameContext } from './contexts/NickNameContext';
 import { ScoreContext } from './contexts/ScoreContext';
@@ -17,7 +17,7 @@ function App() {
     <div className="view-layout view-layout--center">
       <NickNameContext.Provider value={{ globalNickName, setGlobalNickName }}>
         <ScoreContext.Provider value={{ globalScore, setGlobalScore }}>
-          {RouteElement}
+          <Suspense fallback={<div>Loading...</div>}>{RouteElement}</Suspense>
         </ScoreContext.Provider>
       </NickNameContext.Provider>
     </div>
